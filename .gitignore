@@ -404,3 +404,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/src/PtProgramTrackerApi/Properties/launchSettings.json
+/src/PtProgramTrackerApi/appsettings.json
+/src/PtProgramTrackerApi/appsettings.Development.json
