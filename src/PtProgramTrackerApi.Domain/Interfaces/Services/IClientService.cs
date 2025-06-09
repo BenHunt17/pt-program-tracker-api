@@ -5,14 +5,14 @@ namespace PtProgramTrackerApi.Domain.Interfaces.Services
 {
     public interface IClientService
     {
-        Client GetClient(int id);
+        Client GetById(int id);
 
-        IEnumerable<Client> GetClients();
+        IEnumerable<Client> FindAll();
 
-        Client AddClient(ClientInput input);
+        Client Create(ClientInput input);
 
-        Client UpdateClient(int id, ClientInput input);
+        Client Update(int id, ClientInput input);
 
-        void DeleteClient(int id);
+        void Delete(int id);
     }
 }

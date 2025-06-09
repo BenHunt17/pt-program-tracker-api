@@ -21,7 +21,7 @@ namespace PtProgramtrackerApi.RestApi.Controllers
         [ProducesResponseType(typeof(Client), (int)HttpStatusCode.OK)]
         public IActionResult GetById(int id)
         {
-            var client = _clientService.GetClient(id);
+            var client = _clientService.GetById(id);
             return Ok(client);
         }
 
@@ -29,15 +29,15 @@ namespace PtProgramtrackerApi.RestApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<Client>), (int)HttpStatusCode.OK)]
         public IActionResult FindAll()
         {
-            var clients = _clientService.GetClients();
+            var clients = _clientService.FindAll();
             return Ok(clients);
         }
 
         [HttpPost()]
         [ProducesResponseType(typeof(Client), (int)HttpStatusCode.Created)]
-        public IActionResult Add(ClientInput input)
+        public IActionResult Create(ClientInput input)
         {
-            var client = _clientService.AddClient(input);
+            var client = _clientService.Create(input);
             return Created("{id}", client);
         }
 
@@ -45,7 +45,7 @@ namespace PtProgramtrackerApi.RestApi.Controllers
         [ProducesResponseType(typeof(Client), (int)HttpStatusCode.OK)]
         public IActionResult Update(int id, ClientInput clientInput)
         {
-            var client = _clientService.UpdateClient(id, clientInput);
+            var client = _clientService.Update(id, clientInput);
             return Ok(client);
         }
 
@@ -53,7 +53,7 @@ namespace PtProgramtrackerApi.RestApi.Controllers
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.NoContent)]
         public IActionResult Delete(int id)
         {
-            _clientService.DeleteClient(id);
+            _clientService.Delete(id);
             return NoContent();
         }
     }

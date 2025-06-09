@@ -1,7 +1,6 @@
-﻿using PtProgramTrackerApi.DataPersistence;
-using PtProgramTrackerApi.DataPersistence.Models;
-using PtProgramTrackerApi.Domain.Entities;
+﻿using PtProgramTrackerApi.Domain.Entities;
 using PtProgramTrackerApi.Domain.Inputs;
+using PtProgramTrackerApi.Domain.Interfaces.DataAccess;
 using PtProgramTrackerApi.Domain.Interfaces.Services;
 
 namespace PtProgramTrackerApi.Application.Services
@@ -10,74 +9,40 @@ namespace PtProgramTrackerApi.Application.Services
     {
         //TODO - add service layer validators
 
-        private readonly DataContext _dataContext;
+        private readonly IClientDataAccess _clientDataAccess;
 
-        public ClientService(DataContext dataContext)
+        public ClientService(IClientDataAccess clientDataAccess)
         {
-            _dataContext = dataContext;
+            _clientDataAccess = clientDataAccess;
         }
 
-        public Client GetClient(int id)
+        public Client GetById(int id)
         {
-            return GetClientById(id).ToDomainEntity();
+            return _clientDataAccess.GetById(id);
         }
 
-        public IEnumerable<Client> GetClients()
+        public IEnumerable<Client> FindAll()
         {
-            return _dataContext.Clients.Select(x => x.ToDomainEntity())
-                .ToList();
+            return _clientDataAccess.FindAll();
         }
 
-        public Client AddClient(ClientInput input)
+        public Client Create(ClientInput input)
         {
             var client = input.ToDomainEntity();
-            var model = new ClientModel(client);
 
-            _dataContext.Clients.Add(model);
-
-            _dataContext.SaveChanges();
-
-            return model.ToDomainEntity();
+            return _clientDataAccess.Add(client);
         }
 
-        public Client UpdateClient(int id, ClientInput input)
+        public Client Update(int id, ClientInput input)
         {
-            var client = GetClientById(id);
+            var client = input.ToDomainEntity();
 
-            client.FirstName = input.FirstName;
-            client.LastName = input.LastName;
-            client.DateOfBirth = input.DateOfBirth;
-            client.Height = input.Height;
-            client.Weight = input.Weight;
-            client.Email = input.Email;
-            client.PhoneNumber = input.PhoneNumber;
-            client.FitnessGoal = input.FitnessGoal;
-            client.AdditionalNotes = input.AdditionalNotes;
-
-            _dataContext.SaveChanges();
-
-            return client.ToDomainEntity();
+            return _clientDataAccess.Update(id, client);
         }
 
-        public void DeleteClient(int id)
+        public void Delete(int id)
         {
-            var client = GetClientById(id);
-
-            _dataContext.Clients.Remove(client);
-
-            _dataContext.SaveChanges();
-        }
-
-        private ClientModel GetClientById(int id)
-        {
-            var client = _dataContext.Clients.FirstOrDefault(x => x.Id == id);
-
-            if (client == null)
-            {
-                throw new KeyNotFoundException($"No client with ID {id} was found");
-            }
-
-            return client;
+            _clientDataAccess.Remove(id);
         }
     }
 }

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataPersistence\PtProgramTrackerApi.DataPersistence.csproj" />
     <ProjectReference Include="..\PtProgramTrackerApi.Domain\PtProgramTrackerApi.Domain.csproj" />
   </ItemGroup>
 
