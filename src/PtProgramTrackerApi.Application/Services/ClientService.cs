@@ -1,4 +1,6 @@
-﻿using PtProgramTrackerApi.Domain.Entities;
+﻿using FluentValidation;
+using PtProgramTrackerApi.Application.Validators;
+using PtProgramTrackerApi.Domain.Entities;
 using PtProgramTrackerApi.Domain.Inputs;
 using PtProgramTrackerApi.Domain.Interfaces.DataAccess;
 using PtProgramTrackerApi.Domain.Interfaces.Services;
@@ -7,8 +9,6 @@ namespace PtProgramTrackerApi.Application.Services
 {
     public class ClientService : IClientService
     {
-        //TODO - add service layer validators
-
         private readonly IClientDataAccess _clientDataAccess;
 
         public ClientService(IClientDataAccess clientDataAccess)
@@ -28,6 +28,8 @@ namespace PtProgramTrackerApi.Application.Services
 
         public Client Create(ClientInput input)
         {
+            new ClientInputValidator().ValidateAndThrow(input);
+
             var client = input.ToDomainEntity();
 
             return _clientDataAccess.Add(client);
@@ -35,6 +37,8 @@ namespace PtProgramTrackerApi.Application.Services
 
         public Client Update(int id, ClientInput input)
         {
+            new ClientInputValidator().ValidateAndThrow(input);
+
             var client = input.ToDomainEntity();
 
             return _clientDataAccess.Update(id, client);
