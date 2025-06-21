@@ -38,15 +38,15 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
         {
             var clientToUpdate = GetClientById(id);
 
-            client.FirstName = client.FirstName;
-            client.LastName = client.LastName;
-            client.DateOfBirth = client.DateOfBirth;
-            client.Height = client.Height;
-            client.Weight = client.Weight;
-            client.Email = client.Email;
-            client.PhoneNumber = client.PhoneNumber;
-            client.FitnessGoal = client.FitnessGoal;
-            client.AdditionalNotes = client.AdditionalNotes;
+            clientToUpdate.FirstName = client.FirstName;
+            clientToUpdate.LastName = client.LastName;
+            clientToUpdate.DateOfBirth = client.DateOfBirth;
+            clientToUpdate.Height = client.Height;
+            clientToUpdate.Weight = client.Weight;
+            clientToUpdate.Email = client.Email;
+            clientToUpdate.PhoneNumber = client.PhoneNumber;
+            clientToUpdate.FitnessGoal = client.FitnessGoal;
+            clientToUpdate.AdditionalNotes = client.AdditionalNotes;
 
             _dataContext.SaveChanges();
 

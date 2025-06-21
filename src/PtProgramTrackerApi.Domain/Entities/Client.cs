@@ -8,6 +8,11 @@
 
         public string LastName { get; set; }
 
+        public string FullName
+        {
+            get => $"{FirstName} {LastName}";
+        }
+
         public DateTime DateOfBirth { get; set; }
 
         public decimal Height { get; set; }
