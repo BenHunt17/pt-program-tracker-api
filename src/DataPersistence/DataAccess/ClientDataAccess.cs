@@ -1,6 +1,8 @@
-﻿using PtProgramTrackerApi.DataPersistence.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PtProgramTrackerApi.DataPersistence.Models;
 using PtProgramTrackerApi.Domain.Entities;
 using PtProgramTrackerApi.Domain.Interfaces.DataAccess;
+
 namespace PtProgramTrackerApi.DataPersistence.DataAccess
 {
     public class ClientDataAccess : IClientDataAccess
@@ -20,6 +22,7 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
         public IEnumerable<Client> FindAll()
         {
             return _dataContext.Clients.Select(x => x.ToDomainEntity())
+                .AsNoTracking()
                 .ToList();
         }
 
@@ -36,6 +39,7 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
 
         public Client Update(int id, Client client)
         {
+            //TODO - just an update instruction should be enough for a simple entity
             var clientToUpdate = GetClientById(id);
 
             clientToUpdate.FirstName = client.FirstName;
@@ -48,7 +52,7 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
             clientToUpdate.FitnessGoal = client.FitnessGoal;
             clientToUpdate.AdditionalNotes = client.AdditionalNotes;
 
-            _dataContext.SaveChanges();
+            _dataContext.Update(client);
 
             return clientToUpdate.ToDomainEntity();
         }

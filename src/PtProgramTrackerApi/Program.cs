@@ -12,8 +12,12 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<DataContext, DataContext>();
 
 builder.Services.AddScoped<IClientDataAccess, ClientDataAccess>();
+builder.Services.AddScoped<IExerciseDataAccess, ExerciseDataAccess>();
+builder.Services.AddScoped<IProgramDataAccess, ProgramDataAccess>();
 
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IExerciseService, ExerciseService>();
+builder.Services.AddScoped<IProgramService, ProgramService>();
 
 builder.Services.AddOpenApi();
 

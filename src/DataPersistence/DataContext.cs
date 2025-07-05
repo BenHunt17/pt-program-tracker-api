@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Protocols;
 using PtProgramTrackerApi.DataPersistence.Models;
 
 namespace PtProgramTrackerApi.DataPersistence
@@ -16,9 +15,24 @@ namespace PtProgramTrackerApi.DataPersistence
 
         public DbSet<ClientModel> Clients { get; set; }
 
+        public DbSet<ProgramModel> Programs { get; set; }
+
+        public DbSet<WorkoutModel> Workouts { get; set; }
+
+        public DbSet<ExerciseModel> Exercises { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_configuration.GetConnectionString("PtProgramTrackerDB"));
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProgramModel>()
+                .HasIndex(x => x.Name).IsUnique();
+
+            modelBuilder.Entity<ExerciseModel>()
+                .HasIndex(x => x.Name).IsUnique();
         }
     }
 }
