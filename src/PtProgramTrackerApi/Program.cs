@@ -4,10 +4,15 @@ using PtProgramTrackerApi.DataPersistence.DataAccess;
 using PtProgramTrackerApi.Domain.Interfaces.DataAccess;
 using PtProgramTrackerApi.Domain.Interfaces.Services;
 using Scalar.AspNetCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(opts =>
+    {
+        opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 builder.Services.AddScoped<DataContext, DataContext>();
 
