@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using PtProgramTrackerApi.Application.Validators;
+using PtProgramTrackerApi.Domain.Dtos;
 using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs;
 using PtProgramTrackerApi.Domain.Interfaces.DataAccess;
 using PtProgramTrackerApi.Domain.Interfaces.Services;
 
@@ -26,18 +26,18 @@ namespace PtProgramTrackerApi.Application.Services
             return _exerciseDataAccess.FindAll();
         }
 
-        public Exercise Create(ExerciseInput input)
+        public Exercise Create(ExerciseDto input)
         {
-            new ExerciseInputValidator().ValidateAndThrow(input);
+            new ExerciseDtoValidator().ValidateAndThrow(input);
 
             var exercise = new Exercise(input);
 
             return _exerciseDataAccess.Add(exercise);
         }
 
-        public Exercise Update(int id, ExerciseInput input)
+        public Exercise Update(int id, ExerciseDto input)
         {
-            new ExerciseInputValidator().ValidateAndThrow(input);
+            new ExerciseDtoValidator().ValidateAndThrow(input);
 
             var exercise = new Exercise(input);
 

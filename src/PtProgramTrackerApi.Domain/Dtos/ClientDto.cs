@@ -1,8 +1,8 @@
 ﻿using PtProgramTrackerApi.Domain.Entities;
 
-namespace PtProgramTrackerApi.Domain.Inputs
+namespace PtProgramTrackerApi.Domain.Dtos
 {
-    public class ClientInput
+    public class ClientDto
     {
         public string FirstName { get; set; }
 

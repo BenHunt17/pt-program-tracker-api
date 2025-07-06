@@ -1,5 +1,5 @@
-﻿using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs.ProgramInput;
+﻿using PtProgramTrackerApi.Domain.Dtos.Program;
+using PtProgramTrackerApi.Domain.Entities;
 
 namespace PtProgramTrackerApi.Domain.Interfaces.Services
 {
@@ -9,9 +9,9 @@ namespace PtProgramTrackerApi.Domain.Interfaces.Services
 
         IEnumerable<Program> FindAll();
 
-        Program UpsertProgram(ProgramInput input);
+        Program UpsertProgram(ProgramDto input);
 
-        Program UpsertProgramWorkout(int programId, WorkoutInput input);
+        Program UpsertProgramWorkout(int programId, WorkoutDto input);
 
         Program RemoveProgramWorkout(int programId, int workoutId);
 

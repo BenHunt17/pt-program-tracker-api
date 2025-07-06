@@ -1,5 +1,5 @@
-﻿using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs.ProgramInput;
+﻿using PtProgramTrackerApi.Domain.Dtos.Program;
+using PtProgramTrackerApi.Domain.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PtProgramTrackerApi.DataPersistence.Models
@@ -15,7 +15,7 @@ namespace PtProgramTrackerApi.DataPersistence.Models
             Id = id;
         }
 
-        public WorkoutModel(int programId, WorkoutInput workout)
+        public WorkoutModel(int programId, WorkoutDto workout)
         {
             Id = workout.Id;
             Name = workout.Name;

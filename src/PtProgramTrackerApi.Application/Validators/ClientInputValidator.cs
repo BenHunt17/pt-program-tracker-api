@@ -1,14 +1,9 @@
 ﻿using FluentValidation;
-using PtProgramTrackerApi.Domain.Inputs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PtProgramTrackerApi.Domain.Dtos;
 
 namespace PtProgramTrackerApi.Application.Validators
 {
-    public class ClientInputValidator : AbstractValidator<ClientInput>
+    public class ClientInputValidator : AbstractValidator<ClientDto>
     {
         public ClientInputValidator()
         {

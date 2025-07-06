@@ -1,5 +1,5 @@
-﻿using PtProgramTrackerApi.Domain.Enums;
-using PtProgramTrackerApi.Domain.Inputs;
+﻿using PtProgramTrackerApi.Domain.Dtos;
+using PtProgramTrackerApi.Domain.Enums;
 
 namespace PtProgramTrackerApi.Domain.Entities
 {
@@ -9,7 +9,7 @@ namespace PtProgramTrackerApi.Domain.Entities
         {
         }
 
-        public Exercise(ExerciseInput input)
+        public Exercise(ExerciseDto input)
         {
             Name = input.Name;
             Type = input.Type;

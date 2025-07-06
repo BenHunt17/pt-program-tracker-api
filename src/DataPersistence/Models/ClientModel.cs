@@ -1,5 +1,4 @@
 ﻿using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PtProgramTrackerApi.DataPersistence.Models

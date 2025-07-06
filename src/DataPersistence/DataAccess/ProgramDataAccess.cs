@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PtProgramTrackerApi.DataPersistence.Models;
+using PtProgramTrackerApi.Domain.Dtos.Program;
 using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs.ProgramInput;
 using PtProgramTrackerApi.Domain.Interfaces.DataAccess;
 
 namespace PtProgramTrackerApi.DataPersistence.DataAccess
 {
-    public partial class ProgramDataAccess : IProgramDataAccess
+    public class ProgramDataAccess : IProgramDataAccess
     {
         private readonly DataContext _dataContext;
 
@@ -30,7 +30,7 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
                 .ToList();
         }
 
-        public Program UpsertProgram(ProgramInput input)
+        public Program UpsertProgram(ProgramDto input)
         {
             var programModel = new ProgramModel(input);
 
@@ -49,7 +49,7 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
             return GetById(programModel.Id);
         }
 
-        public Program UpsertProgramWorkout(int programId, WorkoutInput input)
+        public Program UpsertProgramWorkout(int programId, WorkoutDto input)
         {
             var workoutModel = new WorkoutModel(programId, input);
 

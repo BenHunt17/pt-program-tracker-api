@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PtProgramTrackerApi.Domain.Dtos;
 using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs;
 using PtProgramTrackerApi.Domain.Interfaces.Services;
 using System.Net;
 
@@ -35,7 +35,7 @@ namespace PtProgramTrackerApi.Controllers
 
         [HttpPost()]
         [ProducesResponseType(typeof(Exercise), (int)HttpStatusCode.Created)]
-        public IActionResult Create(ExerciseInput input)
+        public IActionResult Create(ExerciseDto input)
         {
             var exercise = _exerciseService.Create(input);
             return Created("{id}", exercise);
@@ -43,7 +43,7 @@ namespace PtProgramTrackerApi.Controllers
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Exercise), (int)HttpStatusCode.OK)]
-        public IActionResult Update(int id, ExerciseInput input)
+        public IActionResult Update(int id, ExerciseDto input)
         {
             var exercise = _exerciseService.Update(id, input);
             return Ok(exercise);

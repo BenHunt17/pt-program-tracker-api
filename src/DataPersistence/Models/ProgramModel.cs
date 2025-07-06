@@ -1,5 +1,5 @@
-﻿using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs.ProgramInput;
+﻿using PtProgramTrackerApi.Domain.Dtos.Program;
+using PtProgramTrackerApi.Domain.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PtProgramTrackerApi.DataPersistence.Models
@@ -10,7 +10,7 @@ namespace PtProgramTrackerApi.DataPersistence.Models
         {
         }
 
-        public ProgramModel(ProgramInput program)
+        public ProgramModel(ProgramDto program)
         { 
             Id = program.Id;
             Name = program.Name;

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using PtProgramTrackerApi.Application.Validators;
+using PtProgramTrackerApi.Domain.Dtos.Program;
 using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs.ProgramInput;
 using PtProgramTrackerApi.Domain.Interfaces.DataAccess;
 using PtProgramTrackerApi.Domain.Interfaces.Services;
 
@@ -27,16 +27,16 @@ namespace PtProgramTrackerApi.Application.Services
             return _programDataAccess.FindAll();
         }
 
-        public Program UpsertProgram(ProgramInput input)
+        public Program UpsertProgram(ProgramDto input)
         {
-            new ProgramInputValidator().ValidateAndThrow(input);
+            new ProgramDtoValidator().ValidateAndThrow(input);
 
             return _programDataAccess.UpsertProgram(input);
         }
 
-        public Program UpsertProgramWorkout(int programId, WorkoutInput input)
+        public Program UpsertProgramWorkout(int programId, WorkoutDto input)
         {
-            new WorkoutInputValidator().ValidateAndThrow(input);
+            new WorkoutDtoValidator().ValidateAndThrow(input);
 
             return _programDataAccess.UpsertProgramWorkout(programId, input);
         }

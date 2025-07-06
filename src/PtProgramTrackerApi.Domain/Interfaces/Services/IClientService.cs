@@ -1,5 +1,5 @@
-﻿using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs;
+﻿using PtProgramTrackerApi.Domain.Dtos;
+using PtProgramTrackerApi.Domain.Entities;
 
 namespace PtProgramTrackerApi.Domain.Interfaces.Services
 {
@@ -9,9 +9,9 @@ namespace PtProgramTrackerApi.Domain.Interfaces.Services
 
         IEnumerable<Client> FindAll();
 
-        Client Create(ClientInput input);
+        Client Create(ClientDto input);
 
-        Client Update(int id, ClientInput input);
+        Client Update(int id, ClientDto input);
 
         void Delete(int id);
     }

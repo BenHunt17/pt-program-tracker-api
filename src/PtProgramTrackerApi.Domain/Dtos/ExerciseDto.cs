@@ -1,8 +1,8 @@
 ﻿using PtProgramTrackerApi.Domain.Enums;
 
-namespace PtProgramTrackerApi.Domain.Inputs
+namespace PtProgramTrackerApi.Domain.Dtos
 {
-    public class ExerciseInput
+    public class ExerciseDto
     {
         public string Name { get; set; }
 

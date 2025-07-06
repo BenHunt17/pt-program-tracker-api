@@ -1,5 +1,5 @@
-﻿using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs;
+﻿using PtProgramTrackerApi.Domain.Dtos;
+using PtProgramTrackerApi.Domain.Entities;
 
 namespace PtProgramTrackerApi.Domain.Interfaces.Services
 {
@@ -9,9 +9,9 @@ namespace PtProgramTrackerApi.Domain.Interfaces.Services
 
         IEnumerable<Exercise> FindAll();
 
-        Exercise Create(ExerciseInput input);
+        Exercise Create(ExerciseDto input);
 
-        Exercise Update(int id, ExerciseInput input);
+        Exercise Update(int id, ExerciseDto input);
 
         void Delete(int id);
     }

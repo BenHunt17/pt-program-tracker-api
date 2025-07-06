@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using PtProgramTrackerApi.Domain.Dtos;
 using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs;
 using PtProgramTrackerApi.Domain.Interfaces.Services;
 using System.Net;
 
@@ -35,7 +35,7 @@ namespace PtProgramtrackerApi.RestApi.Controllers
 
         [HttpPost()]
         [ProducesResponseType(typeof(Client), (int)HttpStatusCode.Created)]
-        public IActionResult Create(ClientInput input)
+        public IActionResult Create(ClientDto input)
         {
             var client = _clientService.Create(input);
             return Created("{id}", client);
@@ -43,7 +43,7 @@ namespace PtProgramtrackerApi.RestApi.Controllers
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Client), (int)HttpStatusCode.OK)]
-        public IActionResult Update(int id, ClientInput clientInput)
+        public IActionResult Update(int id, ClientDto clientInput)
         {
             var client = _clientService.Update(id, clientInput);
             return Ok(client);

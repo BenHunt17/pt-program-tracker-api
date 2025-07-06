@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PtProgramTrackerApi.Domain.Inputs.ProgramInput;
+using PtProgramTrackerApi.Domain.Dtos.Program;
 using PtProgramTrackerApi.Domain.Interfaces.Services;
 using System.Net;
 
@@ -34,7 +34,7 @@ namespace PtProgramTrackerApi.Controllers
 
         [HttpPost()]
         [ProducesResponseType(typeof(Program), (int)HttpStatusCode.Created)]
-        public IActionResult Upsert(ProgramInput input)
+        public IActionResult Upsert(ProgramDto input)
         {
             var Program = _ProgramService.UpsertProgram(input);
             return Created("{id}", Program);
@@ -42,7 +42,7 @@ namespace PtProgramTrackerApi.Controllers
 
         [HttpPut("{id}/workouts")]
         [ProducesResponseType(typeof(Program), (int)HttpStatusCode.OK)]
-        public IActionResult UpsertProgramWorkouts(int id, WorkoutInput input)
+        public IActionResult UpsertProgramWorkouts(int id, WorkoutDto input)
         {
             var Program = _ProgramService.UpsertProgramWorkout(id, input);
             return Ok(Program);

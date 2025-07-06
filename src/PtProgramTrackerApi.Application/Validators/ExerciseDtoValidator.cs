@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using PtProgramTrackerApi.Domain.Inputs;
+using PtProgramTrackerApi.Domain.Dtos;
 
 namespace PtProgramTrackerApi.Application.Validators
 {
-    public class ExerciseInputValidator : AbstractValidator<ExerciseInput>
+    public class ExerciseDtoValidator : AbstractValidator<ExerciseDto>
     {
-        public ExerciseInputValidator()
+        public ExerciseDtoValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Type).IsInEnum();

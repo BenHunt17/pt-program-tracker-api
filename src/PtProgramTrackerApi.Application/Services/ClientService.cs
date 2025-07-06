@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using PtProgramTrackerApi.Application.Validators;
+using PtProgramTrackerApi.Domain.Dtos;
 using PtProgramTrackerApi.Domain.Entities;
-using PtProgramTrackerApi.Domain.Inputs;
 using PtProgramTrackerApi.Domain.Interfaces.DataAccess;
 using PtProgramTrackerApi.Domain.Interfaces.Services;
 
@@ -26,7 +26,7 @@ namespace PtProgramTrackerApi.Application.Services
             return _clientDataAccess.FindAll();
         }
 
-        public Client Create(ClientInput input)
+        public Client Create(ClientDto input)
         {
             new ClientInputValidator().ValidateAndThrow(input);
 
@@ -35,7 +35,7 @@ namespace PtProgramTrackerApi.Application.Services
             return _clientDataAccess.Add(client);
         }
 
-        public Client Update(int id, ClientInput input)
+        public Client Update(int id, ClientDto input)
         {
             new ClientInputValidator().ValidateAndThrow(input);
 
