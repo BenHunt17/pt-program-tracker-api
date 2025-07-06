@@ -132,7 +132,7 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
             var program = _dataContext.Programs
                 .Include(x => x.Workouts)
                 .ThenInclude(x => x.Exercises)
-                .FirstOrDefault();
+                .FirstOrDefault(x => x.Id == id);
 
             if (program == null)
             {
