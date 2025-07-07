@@ -7,5 +7,7 @@
         public string Name { get; set; }
 
         public string Aim { get; set; }
+
+        public bool IsInClientContext { get; set; }
     }
 }

@@ -59,9 +59,15 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
 
         public void Remove(int id)
         {
+            var programsToRemove = _dataContext.Programs
+                .Where(x => x.ClientId == id)
+                .ToList();
+
+            _dataContext.RemoveRange(programsToRemove);
+
             var clientToRemove = GetClientById(id);
 
-            _dataContext.Clients.Remove(clientToRemove);
+            _dataContext.Remove(clientToRemove);
 
             _dataContext.SaveChanges();
         }

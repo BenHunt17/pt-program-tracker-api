@@ -56,7 +56,7 @@ namespace PtProgramTrackerApi.Controllers
             return Ok(Program);
         }
 
-        [HttpDelete("{id}/workouts/{workoutId}")]
+        [HttpDelete("{programId}/workouts/{workoutId}")]
         [ProducesResponseType(typeof(Program), (int)HttpStatusCode.OK)]
         public IActionResult RemoveProgramWorkouts(int programId, int workoutId)
         {

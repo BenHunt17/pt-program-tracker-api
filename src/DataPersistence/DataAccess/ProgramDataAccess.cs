@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Identity;
+using Microsoft.EntityFrameworkCore;
 using PtProgramTrackerApi.DataPersistence.Models;
+using PtProgramTrackerApi.DataPersistence.QueryExtensions;
 using PtProgramTrackerApi.Domain.Dtos.Program;
 using PtProgramTrackerApi.Domain.Entities;
+using PtProgramTrackerApi.Domain.Interfaces;
 using PtProgramTrackerApi.Domain.Interfaces.DataAccess;
 
 namespace PtProgramTrackerApi.DataPersistence.DataAccess
@@ -9,10 +12,12 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
     public class ProgramDataAccess : IProgramDataAccess
     {
         private readonly DataContext _dataContext;
+        private readonly IRequestContext _requestContext;
 
-        public ProgramDataAccess(DataContext dataContext)
+        public ProgramDataAccess(DataContext dataContext, IRequestContext requestContext)
         {
             _dataContext = dataContext;
+            _requestContext = requestContext;
         }
 
         public Program GetById(int id)
@@ -26,22 +31,30 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
                 .Include(x => x.Workouts)
                 .ThenInclude(x => x.Exercises)
                 .AsNoTracking()
+                .WithClientFilter(_requestContext.ClientId)
                 .Select(x => x.ToDomainEntity())
                 .ToList();
         }
 
         public Program UpsertProgram(ProgramDto input)
         {
-            var programModel = new ProgramModel(input);
+            ProgramModel programModel;
 
-            if (programModel.Id == 0)
+            if (input.Id != 0)
             {
-                _dataContext.Add(programModel);
+                programModel = GetProgramById(input.Id); 
+                programModel.Name = input.Name;
+                programModel.Aim = input.Aim;
+
+                if (input.IsInClientContext)
+                {
+                    programModel.ClientId = _requestContext.ClientId;
+                }
             }
             else
             {
-                _dataContext.Attach(programModel);
-                _dataContext.Entry(programModel).State = EntityState.Modified;
+                programModel = new ProgramModel(input, _requestContext.ClientId);
+                _dataContext.Add(programModel);
             }
 
             _dataContext.SaveChanges();
@@ -51,16 +64,21 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
 
         public Program UpsertProgramWorkout(int programId, WorkoutDto input)
         {
-            var workoutModel = new WorkoutModel(programId, input);
+            var programModel = GetProgramById(programId);
 
-            if (workoutModel.Id == 0)
+            if (input.Id == 0)
             {
+                var workoutModel = new WorkoutModel(programId, input);
                 _dataContext.Add(workoutModel);
             }
             else
             {
-                _dataContext.Attach(workoutModel);
-                _dataContext.Entry(workoutModel).State = EntityState.Modified;
+                var workoutModel = programModel.Workouts.FirstOrDefault(x => x.Id == input.Id);
+
+                if (workoutModel != null)
+                {
+                    workoutModel.Name = input.Name;
+                }
             }
 
             _dataContext.SaveChanges();
@@ -70,10 +88,14 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
 
         public Program RemoveProgramWorkout(int programId, int workoutId)
         {
-            var workoutModel = new WorkoutModel(workoutId);
-            _dataContext.Attach(workoutModel);
+            var programModel = GetProgramById(programId);
 
-            _dataContext.Remove(workoutModel);
+            var workoutModel = programModel.Workouts.FirstOrDefault(x => x.Id ==  workoutId);
+
+            if (workoutModel != null)
+            {
+                _dataContext.Remove(workoutModel);
+            }
 
             _dataContext.SaveChanges();
 
@@ -82,6 +104,8 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
 
         public Program UpdateProgramWorkoutExercises(int programId, int workoutId, IEnumerable<int> exerciseIds)
         {
+            GetProgramById(programId);
+
             var workoutModel = _dataContext.Workouts
                 .Include(x => x.Exercises)
                 .FirstOrDefault(x => x.Id == workoutId && x.ProgramId == programId);
@@ -132,6 +156,7 @@ namespace PtProgramTrackerApi.DataPersistence.DataAccess
             var program = _dataContext.Programs
                 .Include(x => x.Workouts)
                 .ThenInclude(x => x.Exercises)
+                .WithClientFilter(_requestContext.ClientId)
                 .FirstOrDefault(x => x.Id == id);
 
             if (program == null)

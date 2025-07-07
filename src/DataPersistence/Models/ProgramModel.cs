@@ -10,11 +10,16 @@ namespace PtProgramTrackerApi.DataPersistence.Models
         {
         }
 
-        public ProgramModel(ProgramDto program)
+        public ProgramModel(ProgramDto program, int? clientId)
         { 
             Id = program.Id;
             Name = program.Name;
             Aim = program.Aim;
+
+            if (program.IsInClientContext)
+            {
+                ClientId = clientId;
+            }
         }
 
         public int Id { get; set; }
@@ -25,6 +30,9 @@ namespace PtProgramTrackerApi.DataPersistence.Models
         public string? Aim { get; set; }
 
         public ICollection<WorkoutModel> Workouts { get; set; }
+
+        public int? ClientId { get; set; }
+        public ClientModel? Client { get; set; }
 
         public Program ToDomainEntity()
         {

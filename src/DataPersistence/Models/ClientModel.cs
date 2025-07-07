@@ -1,6 +1,8 @@
 ﻿using PtProgramTrackerApi.Domain.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
+//todo - USING "Model" isn't standard EF convention. Look into possible ways to rename without confusing with the domain objects
+
 namespace PtProgramTrackerApi.DataPersistence.Models
 {
     public class ClientModel : IDatabaseModel<Client>
@@ -45,6 +47,8 @@ namespace PtProgramTrackerApi.DataPersistence.Models
         public string? FitnessGoal { get; set; }
 
         public string? AdditionalNotes { get; set; }
+
+        ICollection<ProgramModel> Programs { get; set; }
 
         public Client ToDomainEntity()
         {

@@ -1,8 +1,11 @@
+using PtProgramTrackerApi.Application.RequestContext;
 using PtProgramTrackerApi.Application.Services;
 using PtProgramTrackerApi.DataPersistence;
 using PtProgramTrackerApi.DataPersistence.DataAccess;
+using PtProgramTrackerApi.Domain.Interfaces;
 using PtProgramTrackerApi.Domain.Interfaces.DataAccess;
 using PtProgramTrackerApi.Domain.Interfaces.Services;
+using PtProgramTrackerApi.Middleware;
 using Scalar.AspNetCore;
 using System.Text.Json.Serialization;
 
@@ -13,6 +16,8 @@ builder.Services.AddControllers()
     {
         opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
+
+builder.Services.AddScoped<IRequestContext, RequestContext>();
 
 builder.Services.AddScoped<DataContext, DataContext>();
 
@@ -45,6 +50,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+app.UseRequestContext();
 
 app.UseHttpsRedirection();
 
