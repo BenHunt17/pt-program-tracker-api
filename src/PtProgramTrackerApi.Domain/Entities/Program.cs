@@ -9,5 +9,7 @@
         public string Aim { get; set; }
 
         public IEnumerable<Workout> Workouts { get; set; }
+
+        public bool IsClientSpecific { get; set; }
     }
 }

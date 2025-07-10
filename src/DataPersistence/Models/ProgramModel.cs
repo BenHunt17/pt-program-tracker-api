@@ -42,7 +42,8 @@ namespace PtProgramTrackerApi.DataPersistence.Models
                 Name = Name,
                 Aim = Aim,
                 Workouts = Workouts.Select(
-                    x => x.ToDomainEntity())
+                    x => x.ToDomainEntity()),
+                IsClientSpecific = ClientId != null,
             };
         }
     }
